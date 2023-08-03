@@ -144,7 +144,7 @@ zip_entry.grid(row=1, column=7, padx=10, pady=10)
 
 
 #Select Record method
-def select_record():
+def select_record(e):
     #Clear entry boxes
     fn_entry.delete(0, END)
     ln_entry.delete(0, END)
@@ -169,6 +169,17 @@ def select_record():
     state_entry.insert(0, values[5])
     zip_entry.insert(0, values[6])
     
+
+# Clear Entry boxes
+def clear_entries():
+     #Clear entry boxes
+    fn_entry.delete(0, END)
+    ln_entry.delete(0, END)
+    id_entry.delete(0, END)
+    address_entry.delete(0, END)
+    city_entry.delete(0, END)
+    state_entry.delete(0, END)
+    zip_entry.delete(0, END)
     
 
 
@@ -197,8 +208,11 @@ move_up_button.grid(row=0, column=5, padx=10, pady=10)
 move_down_button = Button(button_frame, text="Move Down")
 move_down_button.grid(row=0, column=6, padx=10, pady=10)
 
-select_record_button = Button(button_frame, text="Select Record", command= select_record)
+select_record_button = Button(button_frame, text="Clear Entries", command= clear_entries)
 select_record_button.grid(row=0, column=7, padx=10, pady=10)
+
+#Bind Treeview
+my_tree.bind("<ButtonRelease-1>", select_record)
 
 
 root.mainloop()
