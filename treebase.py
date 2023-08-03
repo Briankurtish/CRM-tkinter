@@ -42,6 +42,7 @@ my_tree.pack()
 tree_scroll.config(command= my_tree.yview)
 
 #define our columns
+my_tree['columns'] = ("First Name", "Last Name", "ID", "Address", "City", "State", "ZipCode")
 
 #Format our columns
 
