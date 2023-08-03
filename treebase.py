@@ -28,7 +28,13 @@ c.execute("""
               zipcode text)
           """)
 
+#Add dummy data to database
+
 #Commit the changes
+conn.commit()
+
+#Close our connection
+conn.close()
 
 
 
