@@ -55,6 +55,15 @@ my_tree.column("State", anchor=CENTER, width=140)
 my_tree.column("ZipCode", anchor=CENTER, width=140)
 
 #Create Headings
+my_tree.heading("#0", text="", anchor=W)
+my_tree.heading("First Name", text="First Name", anchor=W)
+my_tree.heading("Last Name", text="Last Name", anchor=W)
+my_tree.heading("ID", text="ID", anchor=CENTER)
+my_tree.heading("Address", text="Address", anchor=CENTER)
+my_tree.heading("City", text="City", anchor=CENTER)
+my_tree.heading("State", text="State", anchor=CENTER)
+my_tree.heading("City", text="City", anchor=CENTER)
+my_tree.heading("ZipCode", text="ZipCode", anchor=CENTER)
 
 #Add Fake data
 
