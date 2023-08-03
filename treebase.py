@@ -142,6 +142,36 @@ zip_label.grid(row=1, column=6, padx=10, pady=10)
 zip_entry = Entry(data_frame)
 zip_entry.grid(row=1, column=7, padx=10, pady=10)
 
+
+#Select Record method
+def select_record():
+    #Clear entry boxes
+    fn_entry.delete(0, END)
+    ln_entry.delete(0, END)
+    id_entry.delete(0, END)
+    address_entry.delete(0, END)
+    city_entry.delete(0, END)
+    state_entry.delete(0, END)
+    zip_entry.delete(0, END)
+    
+    #Grab record Number
+    selected = my_tree.focus()
+    
+    #Grab record values
+    values = my_tree.item(selected, 'values')
+    
+    # Outputs to entry boxes
+    fn_entry.insert(0, values[0])
+    ln_entry.insert(0, values[1])
+    id_entry.insert(0, values[2])
+    address_entry.insert(0, values[3])
+    city_entry.insert(0, values[4])
+    state_entry.insert(0, values[5])
+    zip_entry.insert(0, values[6])
+    
+    
+
+
 # Add Buttons
 button_frame = LabelFrame(root, text="Commands")
 button_frame.pack(fill="x", expand="yes", padx=20)
@@ -167,7 +197,7 @@ move_up_button.grid(row=0, column=5, padx=10, pady=10)
 move_down_button = Button(button_frame, text="Move Down")
 move_down_button.grid(row=0, column=6, padx=10, pady=10)
 
-select_record_button = Button(button_frame, text="Select Record")
+select_record_button = Button(button_frame, text="Select Record", command= select_record)
 select_record_button.grid(row=0, column=7, padx=10, pady=10)
 
 
