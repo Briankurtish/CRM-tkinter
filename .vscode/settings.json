@@ -3,6 +3,7 @@
         "evenrow",
         "fieldbackground",
         "oddrow",
+        "padx",
         "rowheight",
         "selectmode",
         "yscrollcommand"

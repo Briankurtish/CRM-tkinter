@@ -104,6 +104,8 @@ for record in data:
 
 
 #Add Record entry boxes
+data_frame = LabelFrame(root, text="Record")
+data_frame.pack(fill="x", expand="yes", padx=20)
 
 
 # Add Buttons
