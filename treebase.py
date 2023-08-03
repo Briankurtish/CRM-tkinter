@@ -45,6 +45,14 @@ tree_scroll.config(command= my_tree.yview)
 my_tree['columns'] = ("First Name", "Last Name", "ID", "Address", "City", "State", "ZipCode")
 
 #Format our columns
+my_tree.column("#0", width=0, stretch=NO)
+my_tree.column("First Name", anchor=W, width=140)
+my_tree.column("Last Name", anchor=W, width=140)
+my_tree.column("ID", anchor=CENTER, width=100)
+my_tree.column("Address", anchor=CENTER, width=140)
+my_tree.column("City", anchor=CENTER, width=140)
+my_tree.column("State", anchor=CENTER, width=140)
+my_tree.column("ZipCode", anchor=CENTER, width=140)
 
 #Create Headings
 
