@@ -155,6 +155,11 @@ def down():
     for row in reversed(rows):
         my_tree.move(row, my_tree.parent(row), my_tree.index(row)+1)
 
+#Remove one record
+def remove_one():
+    x = my_tree.selection()[0]
+    my_tree.delete(x)
+
 
 #Select Record method
 def select_record(e):
@@ -209,7 +214,7 @@ add_button.grid(row=0, column=1, padx=10, pady=10)
 remove_all_button = Button(button_frame, text="Remove All Records")
 remove_all_button.grid(row=0, column=2, padx=10, pady=10)
 
-remove_one_button = Button(button_frame, text="Remove One Selected")
+remove_one_button = Button(button_frame, text="Remove One Selected", command=remove_one)
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 
 remove_many_button = Button(button_frame, text="Remove Many Selected")
