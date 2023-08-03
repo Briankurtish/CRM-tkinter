@@ -74,6 +74,8 @@ data = [
 ]
 
 #Create stripped row tags
+my_tree.tag_configure('oddrow', background="white")
+my_tree.tag_configure('evenrow', background="lightblue")
 
 #Add Record entry boxes
 
