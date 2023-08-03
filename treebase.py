@@ -6,6 +6,25 @@ root = Tk()
 root.title("Cipher - TreeBase")
 root.geometry("1000x500")
 
+# data = [
+#     ["Brain", "Cipher", 1, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+#     ["Logan", "Paul", 2, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+#     ["Derrick", "Hans", 3, "54 Nevada St", "Nevada", "Texas", 34672],
+#     ["Curry", "Jones", 4, "123 Texas St", "California", "Famagusta", 52621],
+#     ["Brain", "Cipher", 5, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+#     ["Logan", "Paul", 6, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+#     ["Derrick", "Hans", 7, "54 Nevada St", "Nevada", "Texas", 34672],
+#     ["Curry", "Jones", 8, "123 Texas St", "California", "Famagusta", 52621],
+#     ["Brain", "Cipher", 9, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+#     ["Logan", "Paul", 10, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+#     ["Derrick", "Hans", 11, "54 Nevada St", "Nevada", "Texas", 34672],
+#     ["Curry", "Jones", 12, "123 Texas St", "California", "Famagusta", 52621],
+#     ["Brain", "Cipher", 13, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+#     ["Logan", "Paul", 14, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+#     ["Derrick", "Hans", 15, "54 Nevada St", "Nevada", "Texas", 34672],
+#     ["Curry", "Jones", 16, "123 Texas St", "California", "Famagusta", 52621],
+   
+# ]
 #some database stuffs
 #Create a database or connect to one that exists
 
@@ -28,7 +47,22 @@ c.execute("""
               zipcode text)
           """)
 
-#Add dummy data to database
+#Add dummy data to table
+# for record in data:
+#     c.execute("INSERT INTO  customers VALUES (:first_name, :last_name, :id, :address, :city, :state, :zipcode)", 
+              
+#               {
+#                 'first_name': record[0],
+#                 'last_name': record[1],
+#                 'id': record[2],
+#                 'address': record[3],
+#                 'city': record[4],
+#                 'state': record[5],
+#                 'zipcode': record[6],
+                
+#               }
+              
+#               )
 
 #Commit the changes
 conn.commit()
@@ -36,6 +70,39 @@ conn.commit()
 #Close our connection
 conn.close()
 
+
+def query_database():
+    #Create a database or connect to one that exists
+
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+
+    c = conn.cursor()
+    
+    c.execute("SELECT * FROM customers")
+    records = c.fetchall()
+    
+    #Add our data to the screen
+    global count
+    count = 0
+
+    for record in records: 
+        if count % 2 == 0: 
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('evenrow'))
+        else:
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('oddrow'))
+        #increment the counter
+        count += 1
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+
+    
 
 
 #Add some style
@@ -98,42 +165,12 @@ my_tree.heading("State", text="State", anchor=CENTER)
 my_tree.heading("ZipCode", text="ZipCode", anchor=CENTER)
 
 #Add Fake data
-data = [
-    ["Brain", "Cipher", 1, "123 Oklahoma St", "Texas", "Famagusta", 99450],
-    ["Logan", "Paul", 2, "123 Vegas St", "Las Vegas", "Vegas", 12389],
-    ["Derrick", "Hans", 3, "54 Nevada St", "Nevada", "Texas", 34672],
-    ["Curry", "Jones", 4, "123 Texas St", "California", "Famagusta", 52621],
-    ["Brain", "Cipher", 5, "123 Oklahoma St", "Texas", "Famagusta", 99450],
-    ["Logan", "Paul", 6, "123 Vegas St", "Las Vegas", "Vegas", 12389],
-    ["Derrick", "Hans", 7, "54 Nevada St", "Nevada", "Texas", 34672],
-    ["Curry", "Jones", 8, "123 Texas St", "California", "Famagusta", 52621],
-    ["Brain", "Cipher", 9, "123 Oklahoma St", "Texas", "Famagusta", 99450],
-    ["Logan", "Paul", 10, "123 Vegas St", "Las Vegas", "Vegas", 12389],
-    ["Derrick", "Hans", 11, "54 Nevada St", "Nevada", "Texas", 34672],
-    ["Curry", "Jones", 12, "123 Texas St", "California", "Famagusta", 52621],
-    ["Brain", "Cipher", 13, "123 Oklahoma St", "Texas", "Famagusta", 99450],
-    ["Logan", "Paul", 14, "123 Vegas St", "Las Vegas", "Vegas", 12389],
-    ["Derrick", "Hans", 15, "54 Nevada St", "Nevada", "Texas", 34672],
-    ["Curry", "Jones", 16, "123 Texas St", "California", "Famagusta", 52621],
-   
-]
+
 
 #Create stripped row tags
 my_tree.tag_configure('oddrow', background="white")
 my_tree.tag_configure('evenrow', background="lightblue")
 
-
-#Add our data to the screen
-global count
-count = 0
-
-for record in data: 
-    if count % 2 == 0: 
-        my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('evenrow'))
-    else:
-         my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('oddrow'))
-    #increment the counter
-    count += 1
 
 
 #Add Record entry boxes
@@ -296,5 +333,8 @@ select_record_button.grid(row=0, column=7, padx=10, pady=10)
 #Bind Treeview
 my_tree.bind("<ButtonRelease-1>", select_record)
 
+
+#Run to pull data from the database on start
+query_database()
 
 root.mainloop()
