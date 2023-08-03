@@ -62,10 +62,16 @@ my_tree.heading("ID", text="ID", anchor=CENTER)
 my_tree.heading("Address", text="Address", anchor=CENTER)
 my_tree.heading("City", text="City", anchor=CENTER)
 my_tree.heading("State", text="State", anchor=CENTER)
-my_tree.heading("City", text="City", anchor=CENTER)
 my_tree.heading("ZipCode", text="ZipCode", anchor=CENTER)
 
 #Add Fake data
+data = [
+    ["Brain", "Cipher", 1, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+    ["Logan", "Paul", 2, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+    ["Derrick", "Hans", 3, "54 Nevada St", "Nevada", "Texas", 34672],
+    ["Curry", "Jones", 4, "123 Texas St", "California", "Famagusta", 52621],
+   
+]
 
 #Create stripped row tags
 
