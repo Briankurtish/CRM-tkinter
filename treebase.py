@@ -32,6 +32,9 @@ tree_frame.pack(pady=10)
 
 #Create a treeview Scrollbar
 
+tree_scroll = Scrollbar(tree_frame)
+tree_scroll.pack(side=RIGHT, fill=Y)
+
 #Create the treeview
 
 #Configure the scrollbar
