@@ -10,7 +10,14 @@ style = ttk.Style()
 
 #Pick a theme
 style.theme_use('default')
+
 #Configure the treeview colors
+style.configure("Treeview", 
+                background="#D3D3D3",
+                foreground="black",
+                rowheight=25,
+                fieldbackground= "#D3D3D3",
+                )
 
 #Change selected color
 
