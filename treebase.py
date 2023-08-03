@@ -70,12 +70,38 @@ data = [
     ["Logan", "Paul", 2, "123 Vegas St", "Las Vegas", "Vegas", 12389],
     ["Derrick", "Hans", 3, "54 Nevada St", "Nevada", "Texas", 34672],
     ["Curry", "Jones", 4, "123 Texas St", "California", "Famagusta", 52621],
+    ["Brain", "Cipher", 5, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+    ["Logan", "Paul", 6, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+    ["Derrick", "Hans", 7, "54 Nevada St", "Nevada", "Texas", 34672],
+    ["Curry", "Jones", 8, "123 Texas St", "California", "Famagusta", 52621],
+    ["Brain", "Cipher", 9, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+    ["Logan", "Paul", 10, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+    ["Derrick", "Hans", 11, "54 Nevada St", "Nevada", "Texas", 34672],
+    ["Curry", "Jones", 12, "123 Texas St", "California", "Famagusta", 52621],
+    ["Brain", "Cipher", 13, "123 Oklahoma St", "Texas", "Famagusta", 99450],
+    ["Logan", "Paul", 14, "123 Vegas St", "Las Vegas", "Vegas", 12389],
+    ["Derrick", "Hans", 15, "54 Nevada St", "Nevada", "Texas", 34672],
+    ["Curry", "Jones", 16, "123 Texas St", "California", "Famagusta", 52621],
    
 ]
 
 #Create stripped row tags
 my_tree.tag_configure('oddrow', background="white")
 my_tree.tag_configure('evenrow', background="lightblue")
+
+
+#Add our data to the screen
+global count
+count = 0
+
+for record in data: 
+    if count % 2 == 0: 
+        my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('evenrow'))
+    else:
+         my_tree.insert(parent='', index='end', iid= count, text='', value=(record[0],record[1],record[2],record[3],record[4],record[5],record[6]), tags=('oddrow'))
+    #increment the counter
+    count += 1
+
 
 #Add Record entry boxes
 
