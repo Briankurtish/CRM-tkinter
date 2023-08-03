@@ -17,6 +17,19 @@ conn = sqlite3.connect('tree_crm.db')
 c = conn.cursor()
 
 #Create a table
+c.execute(""" 
+          CREATE TABLE if not exists customers (
+              first_name text,
+              last_name text,
+              id integer,
+              address text,
+              city text,
+              state text,
+              zipcode text)
+          """)
+
+#Commit the changes
+
 
 
 #Add some style
