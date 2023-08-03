@@ -39,6 +39,7 @@ my_tree = ttk.Treeview(tree_frame, yscrollcommand= tree_scroll.set, selectmode="
 my_tree.pack()
 
 #Configure the scrollbar
+tree_scroll.config(command= my_tree.yview)
 
 #define our columns
 
