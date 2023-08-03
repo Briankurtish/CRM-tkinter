@@ -20,6 +20,9 @@ style.configure("Treeview",
                 )
 
 #Change selected color
+style.map("Treeview", 
+          background= [('selected', '#347083')]
+          )
 
 #Create a treeview frame
 
