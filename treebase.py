@@ -26,16 +26,17 @@ style.map("Treeview",
 
 #Create a treeview frame
 #Scroll bar works well when you stick them in a frame rather than the treeview itself
-
 tree_frame = Frame(root)
 tree_frame.pack(pady=10)
 
-#Create a treeview Scrollbar
 
+#Create a treeview Scrollbar
 tree_scroll = Scrollbar(tree_frame)
 tree_scroll.pack(side=RIGHT, fill=Y)
 
 #Create the treeview
+my_tree = ttk.Treeview(tree_frame, yscrollcommand= tree_scroll.set, selectmode="extended")
+my_tree.pack()
 
 #Configure the scrollbar
 
