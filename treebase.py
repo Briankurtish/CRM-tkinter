@@ -143,6 +143,19 @@ zip_entry = Entry(data_frame)
 zip_entry.grid(row=1, column=7, padx=10, pady=10)
 
 
+#Move Row up
+def up():
+    rows = my_tree.selection()
+    for row in rows:
+        my_tree.move(row, my_tree.parent(row), my_tree.index(row)-1)
+        
+#Move Row down
+def down():
+    rows = my_tree.selection()
+    for row in reversed(rows):
+        my_tree.move(row, my_tree.parent(row), my_tree.index(row)+1)
+
+
 #Select Record method
 def select_record(e):
     #Clear entry boxes
@@ -202,10 +215,10 @@ remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 remove_many_button = Button(button_frame, text="Remove Many Selected")
 remove_many_button.grid(row=0, column=4, padx=10, pady=10)
 
-move_up_button = Button(button_frame, text="Move Up")
+move_up_button = Button(button_frame, text="Move Up", command=up)
 move_up_button.grid(row=0, column=5, padx=10, pady=10)
 
-move_down_button = Button(button_frame, text="Move Down")
+move_down_button = Button(button_frame, text="Move Down", command=down)
 move_down_button.grid(row=0, column=6, padx=10, pady=10)
 
 select_record_button = Button(button_frame, text="Clear Entries", command= clear_entries)
