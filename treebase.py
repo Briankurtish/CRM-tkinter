@@ -25,6 +25,10 @@ style.map("Treeview",
           )
 
 #Create a treeview frame
+#Scroll bar works well when you stick them in a frame rather than the treeview itself
+
+tree_frame = Frame(root)
+tree_frame.pack(pady=10)
 
 #Create a treeview Scrollbar
 
