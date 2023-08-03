@@ -161,6 +161,14 @@ def remove_one():
     my_tree.delete(x)
 
 
+#Remove many records
+def remove_many():
+    x = my_tree.selection()
+    for record in x:
+        my_tree.delete(record)
+
+
+
 #Select Record method
 def select_record(e):
     #Clear entry boxes
@@ -217,7 +225,7 @@ remove_all_button.grid(row=0, column=2, padx=10, pady=10)
 remove_one_button = Button(button_frame, text="Remove One Selected", command=remove_one)
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 
-remove_many_button = Button(button_frame, text="Remove Many Selected")
+remove_many_button = Button(button_frame, text="Remove Many Selected", command=remove_many)
 remove_many_button.grid(row=0, column=4, padx=10, pady=10)
 
 move_up_button = Button(button_frame, text="Move Up", command=up)
