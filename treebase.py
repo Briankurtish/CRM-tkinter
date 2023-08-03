@@ -107,6 +107,40 @@ for record in data:
 data_frame = LabelFrame(root, text="Record")
 data_frame.pack(fill="x", expand="yes", padx=20)
 
+fn_label = Label(data_frame, text="First Name")
+fn_label.grid(row=0, column=0, padx=10, pady=10)
+fn_entry = Entry(data_frame)
+fn_entry.grid(row=0, column=1, padx=10, pady=10)
+
+ln_label = Label(data_frame, text="Last Name")
+ln_label.grid(row=1, column=0, padx=10, pady=10)
+ln_entry = Entry(data_frame)
+ln_entry.grid(row=1, column=1, padx=10, pady=10)
+
+id_label = Label(data_frame, text="ID")
+id_label.grid(row=0, column=2, padx=10, pady=10)
+id_entry = Entry(data_frame)
+id_entry.grid(row=0, column=3, padx=10, pady=10)
+
+address_label = Label(data_frame, text="Address")
+address_label.grid(row=1, column=2, padx=10, pady=10)
+address_entry = Entry(data_frame)
+address_entry.grid(row=1, column=3, padx=10, pady=10)
+
+city_label = Label(data_frame, text="City")
+city_label.grid(row=0, column=4, padx=10, pady=10)
+city_entry = Entry(data_frame)
+city_entry.grid(row=0, column=5, padx=10, pady=10)
+
+state_label = Label(data_frame, text="State")
+state_label.grid(row=1, column=4, padx=10, pady=10)
+state_entry = Entry(data_frame)
+state_entry.grid(row=1, column=5, padx=10, pady=10)
+
+zip_label = Label(data_frame, text="ZipCode")
+zip_label.grid(row=1, column=6, padx=10, pady=10)
+zip_entry = Entry(data_frame)
+zip_entry.grid(row=1, column=7, padx=10, pady=10)
 
 # Add Buttons
 

@@ -4,6 +4,7 @@
         "fieldbackground",
         "oddrow",
         "padx",
+        "pady",
         "rowheight",
         "selectmode",
         "yscrollcommand"
