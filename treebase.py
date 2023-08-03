@@ -1,9 +1,23 @@
 from tkinter import *
 from tkinter import ttk
+import sqlite3
 
 root = Tk()
 root.title("Cipher - TreeBase")
 root.geometry("1000x500")
+
+#some database stuffs
+#Create a database or connect to one that exists
+
+conn = sqlite3.connect('tree_crm.db')
+
+#create a cursor instance 
+#a cursor is like a little robot which you can send to go stuffs for you
+
+c = conn.cursor()
+
+#Create a table
+
 
 #Add some style
 style = ttk.Style()
