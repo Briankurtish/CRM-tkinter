@@ -256,9 +256,51 @@ def remove_one():
 
 #Remove many records
 def remove_many():
-    x = my_tree.selection()
-    for record in x:
-        my_tree.delete(record)
+    #Add message box
+    response = messagebox.askyesno("Alert!", "Are you want to delete the selected records from the table?")
+    
+    #Add logic for message box
+    if response == 1:
+        #Designate Selections
+        x = my_tree.selection()
+        
+         #Create List of Ids
+        ids_to_delete = []
+        
+        #Add selections to ids_to_delete
+        for record in x:
+            ids_to_delete.append(my_tree.item(record, 'values')[2])
+            
+        
+        
+        # Delete from TreeView
+        for record in x:
+            my_tree.delete(record)
+        
+       
+        
+        #Create a database or connect to one that exists
+        conn = sqlite3.connect('tree_crm.db')
+
+        #create a cursor instance 
+        #a cursor is like a little robot which you can send to go stuffs for you
+        c = conn.cursor()
+        
+        #Delete selected records from the database table
+        c.executemany("DELETE FROM customers WHERE id = ?", [(a, ) for a in ids_to_delete])
+        
+        #reset list
+        ids_to_delete = []
+        
+        #Commit the changes
+        conn.commit()
+
+        #Close our connection
+        conn.close()
+        
+        #Clear the entry boxes
+        clear_entries()
+        
         
 
 #Remove All Records
