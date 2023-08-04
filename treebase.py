@@ -341,6 +341,49 @@ def update_record():
     
 
 
+#Add new record to database
+def add_record():
+    #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+    c = conn.cursor()
+    
+    #Add new record
+    c.execute("INSERT INTO customers VALUES (:first, :last, :id, :address, :city, :state, :zipcode)", 
+            
+            {
+                'first': fn_entry.get(),
+                'last' : ln_entry.get(),
+                'id': id_entry.get(),
+                'address': address_entry.get(),
+                'city': city_entry.get(),
+                'state': state_entry.get(),
+                'zipcode': zip_entry.get(),
+            }
+              
+            )
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+    
+     #Clear entry boxes
+    fn_entry.delete(0, END)
+    ln_entry.delete(0, END)
+    id_entry.delete(0, END)
+    address_entry.delete(0, END)
+    city_entry.delete(0, END)
+    state_entry.delete(0, END)
+    zip_entry.delete(0, END)
+    
+    
+
+
+
 # Add Buttons
 button_frame = LabelFrame(root, text="Commands")
 button_frame.pack(fill="x", expand="yes", padx=20)
@@ -348,7 +391,7 @@ button_frame.pack(fill="x", expand="yes", padx=20)
 update_button = Button(button_frame, text="Update Record", command=update_record)
 update_button.grid(row=0, column=0, padx=10, pady=10)
 
-add_button = Button(button_frame, text="Add Record")
+add_button = Button(button_frame, text="Add Record", command=add_record)
 add_button.grid(row=0, column=1, padx=10, pady=10)
 
 remove_all_button = Button(button_frame, text="Remove All Records", command=remove_all)
