@@ -3,10 +3,19 @@ from tkinter import ttk
 from tkinter import messagebox
 import sqlite3
 from tkinter import colorchooser
+from configparser import ConfigParser
 
 root = Tk()
 root.title("Cipher - TreeBase")
 root.geometry("1000x550")
+
+#Read config file and get the colors
+parser = ConfigParser()
+
+parser.read("treebase.ini")
+saved_primary_color= parser.get('colors', 'primary_color')
+saved_secondary_color= parser.get('colors', 'secondary_color')
+saved_highlight_color= parser.get('colors', 'highlight_color')
 
 def query_database():
     
@@ -55,6 +64,17 @@ def primary_color():
         #Create stripped row tags
         my_tree.tag_configure('evenrow', background=primary_color)
         
+        #config file 
+        parser = ConfigParser()
+        parser.read("treebase.ini")
+        
+        #set color change
+        parser.set('colors', 'primary_color', primary_color)
+        
+        #save the config file
+        with open('treebase.ini', 'w') as configfile:
+            parser.write(configfile)
+        
 def secondary_color():
     #pick color
     secondary_color = colorchooser.askcolor()[1]
@@ -63,6 +83,17 @@ def secondary_color():
     if secondary_color:
         #Create stripped row tags
         my_tree.tag_configure('oddrow', background=secondary_color)
+        
+        #config file 
+        parser = ConfigParser()
+        parser.read("treebase.ini")
+        
+        #set color change
+        parser.set('colors', 'secondary_color', secondary_color)
+        
+        #save the config file
+        with open('treebase.ini', 'w') as configfile:
+            parser.write(configfile)
         
     
 def highlight_color():
@@ -75,7 +106,39 @@ def highlight_color():
         style.map("Treeview", 
                 background= [('selected', highlight_color)]
                 )
+        
+        #config file 
+        parser = ConfigParser()
+        parser.read("treebase.ini")
+        
+        #set color change
+        parser.set('colors', 'highlight_color', highlight_color)
+        
+        #save the config file
+        with open('treebase.ini', 'w') as configfile:
+            parser.write(configfile)
 
+
+def reset_colors():
+    
+    #Save original colors to config file
+    parser = ConfigParser()
+    parser.read('treebase.ini')
+    parser.set('colors', 'primary_color', 'lightblue')
+    parser.set('colors', 'secondary_color', 'white')
+    parser.set('colors', 'highlight_color', '#347083')
+    
+    #save the config file
+    with open('treebase.ini', 'w') as configfile:
+        parser.write(configfile)
+    
+    #Reset the colors
+    my_tree.tag_configure('oddrow', background='white')
+    my_tree.tag_configure('evenrow', background='lightblue')
+    style.map("Treeview", 
+                background= [('selected', '#347083')]
+                )
+     
  
 
 #Function to search the database
@@ -151,6 +214,8 @@ my_menu.add_cascade(label='Options', menu=option_menu)
 option_menu.add_command(label="Primary Color", command=primary_color)
 option_menu.add_command(label="Secondary Color", command=secondary_color)
 option_menu.add_command(label="Highlight Color", command=highlight_color)
+option_menu.add_separator()
+option_menu.add_command(label="Reset Colors", command=reset_colors)
 option_menu.add_separator()
 option_menu.add_command(label="Exit", command=root.quit)
 
@@ -251,7 +316,7 @@ style.configure("Treeview",
 
 #Change selected color
 style.map("Treeview", 
-          background= [('selected', '#347083')]
+          background= [('selected', saved_highlight_color)]
           )
 
 #Create a treeview frame
@@ -298,8 +363,8 @@ my_tree.heading("ZipCode", text="ZipCode", anchor=CENTER)
 
 
 #Create stripped row tags
-my_tree.tag_configure('oddrow', background="white")
-my_tree.tag_configure('evenrow', background="lightblue")
+my_tree.tag_configure('oddrow', background=saved_secondary_color)
+my_tree.tag_configure('evenrow', background=saved_primary_color)
 
 
 

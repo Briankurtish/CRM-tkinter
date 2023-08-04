@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "configfile",
         "evenrow",
         "executemany",
         "fieldbackground",
@@ -9,6 +10,7 @@
         "rowheight",
         "rowid",
         "selectmode",
+        "treebase",
         "yscrollcommand"
     ]
 }
