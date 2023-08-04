@@ -381,6 +381,12 @@ def add_record():
     zip_entry.delete(0, END)
     
     
+    #Clear the TreeView table
+    my_tree.delete(*my_tree.get_children())
+    
+    #Refresh treeview table
+    query_database()
+    
 
 
 
