@@ -2,10 +2,61 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import sqlite3
+from tkinter import colorchooser
 
 root = Tk()
 root.title("Cipher - TreeBase")
-root.geometry("1000x500")
+root.geometry("1000x550")
+
+#define the option menu functions
+
+def primary_color():
+    #pick color
+    primary_color = colorchooser.askcolor()[1]
+    
+    #Update Treeview
+    if primary_color:
+        #Create stripped row tags
+        my_tree.tag_configure('evenrow', background=primary_color)
+        
+def secondary_color():
+    #pick color
+    secondary_color = colorchooser.askcolor()[1]
+    
+    #Update Treeview
+    if secondary_color:
+        #Create stripped row tags
+        my_tree.tag_configure('oddrow', background=secondary_color)
+        
+    
+def highlight_color():
+    #pick color 
+    highlight_color = colorchooser.askcolor()[1]
+    
+    #Update Treeview
+    if highlight_color:
+        #Change selected color
+        style.map("Treeview", 
+                background= [('selected', highlight_color)]
+                )
+    
+
+#Add Menu
+my_menu = Menu(root)
+root.config(menu=my_menu)
+
+
+#Configure the menu
+option_menu = Menu(my_menu, tearoff=0)
+my_menu.add_cascade(label='Options', menu=option_menu)
+
+#DropDown menu 
+option_menu.add_command(label="Primary Color", command=primary_color)
+option_menu.add_command(label="Secondary Color", command=secondary_color)
+option_menu.add_command(label="Highlight Color", command=highlight_color)
+option_menu.add_separator()
+option_menu.add_command(label="Exit", command=root.quit)
+
 
 # data = [
 #     ["Brain", "Cipher", 1, "123 Oklahoma St", "Texas", "Famagusta", 99450],
