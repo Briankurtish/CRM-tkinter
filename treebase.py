@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sqlite3
 
 root = Tk()
@@ -248,6 +249,9 @@ def remove_one():
     
     #Clear the entry boxes
     clear_entries()
+    
+    #Add message box
+    messagebox.showinfo("Deleted!", "The record was deleted successfully")
 
 
 #Remove many records
