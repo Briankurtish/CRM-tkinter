@@ -8,6 +8,42 @@ root = Tk()
 root.title("Cipher - TreeBase")
 root.geometry("1000x550")
 
+def query_database():
+    
+    #Clear the treeview
+    for record in my_tree.get_children():
+        my_tree.delete(record)
+    
+    #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+
+    c = conn.cursor()
+    
+    c.execute("SELECT rowid, * FROM customers")
+    records = c.fetchall()
+    
+    #Add our data to the screen
+    global count
+    count = 0
+
+    for record in records: 
+        if count % 2 == 0: 
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('evenrow'))
+        else:
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('oddrow'))
+        #increment the counter
+        count += 1
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+
+
 #define the option menu functions
 
 def primary_color():
@@ -39,7 +75,68 @@ def highlight_color():
         style.map("Treeview", 
                 background= [('selected', highlight_color)]
                 )
+
+ 
+
+#Function to search the database
+
+def search_records():
+    lookup_record = search_entry.get()
     
+    #Close the search box
+    search.destroy()
+    
+    #Clear the treeview
+    for record in my_tree.get_children():
+        my_tree.delete(record)
+    
+     #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+
+    c = conn.cursor()
+    
+    c.execute("SELECT rowid, * FROM customers WHERE last_name like ?", (lookup_record,))
+    records = c.fetchall()
+    
+    #Add our data to the screen
+    global count
+    count = 0
+
+    for record in records: 
+        if count % 2 == 0: 
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('evenrow'))
+        else:
+            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('oddrow'))
+        #increment the counter
+        count += 1
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+
+
+def lookup_records():
+    global search_entry, search
+    search = Toplevel(root)
+    search.title("Lookup Records")
+    search.geometry("400x200")
+    
+    #Create label frame
+    search_frame = LabelFrame(search, text="Last Name")
+    search_frame.pack(padx=10, pady=10)
+    
+    #Add entry box
+    search_entry = Entry(search_frame, font=("Helvetica", 16))
+    search_entry.pack(padx=20, pady=20)
+    
+    #Add Button
+    search_button = Button(search, text="Search Records", command=search_records)
+    search_button.pack(padx=20, pady=20)
 
 #Add Menu
 my_menu = Menu(root)
@@ -56,6 +153,16 @@ option_menu.add_command(label="Secondary Color", command=secondary_color)
 option_menu.add_command(label="Highlight Color", command=highlight_color)
 option_menu.add_separator()
 option_menu.add_command(label="Exit", command=root.quit)
+
+
+#Search menu
+search_menu = Menu(my_menu, tearoff=0)
+my_menu.add_cascade(label='Search', menu=search_menu)
+
+#DropDown menu 
+search_menu.add_command(label="Search", command=lookup_records)
+search_menu.add_separator()
+search_menu.add_command(label="Refresh Table", command=query_database)
 
 
 # data = [
@@ -123,35 +230,7 @@ conn.commit()
 conn.close()
 
 
-def query_database():
-    #Create a database or connect to one that exists
-    conn = sqlite3.connect('tree_crm.db')
 
-    #create a cursor instance 
-    #a cursor is like a little robot which you can send to go stuffs for you
-
-    c = conn.cursor()
-    
-    c.execute("SELECT rowid, * FROM customers")
-    records = c.fetchall()
-    
-    #Add our data to the screen
-    global count
-    count = 0
-
-    for record in records: 
-        if count % 2 == 0: 
-            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('evenrow'))
-        else:
-            my_tree.insert(parent='', index='end', iid= count, text='', value=(record[1],record[2],record[0],record[4],record[5],record[6],record[7]), tags=('oddrow'))
-        #increment the counter
-        count += 1
-    
-    #Commit the changes
-    conn.commit()
-
-    #Close our connection
-    conn.close()
 
     
 
