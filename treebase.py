@@ -265,6 +265,28 @@ def remove_many():
 def remove_all():
     for record in my_tree.get_children():
         my_tree.delete(record)
+    
+    #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+    c = conn.cursor()
+    
+    #Delete everything from the database table
+    c.execute("DROP TABLE customers")
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+    
+    #Clear the entry boxes
+    clear_entries()
+    
+    #Add message box
+    messagebox.showinfo("Deleted!", "The record was deleted successfully")
 
 
 
