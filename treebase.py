@@ -73,7 +73,6 @@ conn.close()
 
 def query_database():
     #Create a database or connect to one that exists
-
     conn = sqlite3.connect('tree_crm.db')
 
     #create a cursor instance 
@@ -290,6 +289,46 @@ def update_record():
     selected = my_tree.focus()
     #Update record
     my_tree.item(selected, text='', values=(fn_entry.get(), ln_entry.get(), id_entry.get(), address_entry.get(), city_entry.get(), state_entry.get(), zip_entry.get(),))
+    
+    
+    #update the database 
+    #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+    c = conn.cursor()
+    
+    c.execute(""" 
+            UPDATE customers SET
+            
+            first_name = :first,
+            last_name = :last,
+            address = :address,
+            city = :city,
+            state = :state,
+            zipcode = :zipcode
+            
+            WHERE oid = :oid """, 
+            
+            {
+                'first': fn_entry.get(),
+                'last' : ln_entry.get(),
+                'oid': id_entry.get(),
+                'address': address_entry.get(),
+                'city': city_entry.get(),
+                'state': state_entry.get(),
+                'zipcode': zip_entry.get(),
+            } )
+    
+    
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+    
     
      #Clear entry boxes
     fn_entry.delete(0, END)
