@@ -263,30 +263,39 @@ def remove_many():
 
 #Remove All Records
 def remove_all():
-    for record in my_tree.get_children():
-        my_tree.delete(record)
-    
-    #Create a database or connect to one that exists
-    conn = sqlite3.connect('tree_crm.db')
-
-    #create a cursor instance 
-    #a cursor is like a little robot which you can send to go stuffs for you
-    c = conn.cursor()
-    
-    #Delete everything from the database table
-    c.execute("DROP TABLE customers")
-    
-    #Commit the changes
-    conn.commit()
-
-    #Close our connection
-    conn.close()
-    
-    #Clear the entry boxes
-    clear_entries()
     
     #Add message box
-    messagebox.showinfo("Deleted!", "The record was deleted successfully")
+    response = messagebox.askyesno("Alert!", "Are you want to delete everything from the table?")
+    
+    #Add logic for message box
+    if response == 1:
+        #Clear the treeview
+        for record in my_tree.get_children():
+            my_tree.delete(record)
+        
+        #Create a database or connect to one that exists
+        conn = sqlite3.connect('tree_crm.db')
+
+        #create a cursor instance 
+        #a cursor is like a little robot which you can send to go stuffs for you
+        c = conn.cursor()
+        
+        #Delete everything from the database table
+        c.execute("DROP TABLE customers")
+        
+        #Commit the changes
+        conn.commit()
+
+        #Close our connection
+        conn.close()
+        
+        #Clear the entry boxes
+        clear_entries()
+        
+        #Recreate the table
+        create_table_again()
+    
+    
 
 
 
@@ -432,7 +441,36 @@ def add_record():
     
     #Refresh treeview table
     query_database()
-    
+
+
+#Create table again after deletion
+def create_table_again():
+    #Create a database or connect to one that exists
+
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+
+    c = conn.cursor()
+
+    #Create a table
+    c.execute(""" 
+            CREATE TABLE if not exists customers (
+                first_name text,
+                last_name text,
+                id integer,
+                address text,
+                city text,
+                state text,
+                zipcode text)
+            """)
+
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
 
 
 
