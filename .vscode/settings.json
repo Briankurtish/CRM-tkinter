@@ -6,6 +6,7 @@
         "padx",
         "pady",
         "rowheight",
+        "rowid",
         "selectmode",
         "yscrollcommand"
     ]
