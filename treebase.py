@@ -228,6 +228,26 @@ def down():
 def remove_one():
     x = my_tree.selection()[0]
     my_tree.delete(x)
+    
+    
+    #Create a database or connect to one that exists
+    conn = sqlite3.connect('tree_crm.db')
+
+    #create a cursor instance 
+    #a cursor is like a little robot which you can send to go stuffs for you
+    c = conn.cursor()
+    
+    #Delete from database
+    c.execute("DELETE from customers WHERE oid =" + id_entry.get())
+    
+    #Commit the changes
+    conn.commit()
+
+    #Close our connection
+    conn.close()
+    
+    #Clear the entry boxes
+    clear_entries()
 
 
 #Remove many records
